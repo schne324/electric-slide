@@ -1,0 +1,15 @@
+<!DOCTYPE html><html lang="en"><head><title>Electric Slide | Accessible Slider</title><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"></head><body><h1>Electric Slide</h1><section><div class="electric-label">Volume</div><div class="electric-slide"><div class="handle"></div></div></section><script src="../bower_components/jquery/dist/jquery.js"></script><script src="electric-slide.js"></script><script>$('.electric-slide').electricSlide({
+  handle: '.handle',
+  label: '.electric-label',
+  //- values: {
+  //-   min: 0,
+  //-   max: 100
+  //- },
+  values: ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'],
+  increment: 5
+})
+.on('electricSlide:init', function (e, container, handle) {
+  console.log('init fired!');
+  console.log('container: ', container);
+  console.log('handle: ', handle);
+});</script></body></html>

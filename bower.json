@@ -1,0 +1,21 @@
+{
+  "name": "electric-slide",
+  "description": "Accessible slider",
+  "main": "build/electric-slide.js",
+  "authors": [
+    "Harris Schneiderman <schne324@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/schne324/electric-slide",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "jquery": "1.12.1"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "name": "electric-slide",
+  "version": "0.0.0",
+  "description": "Accessible slider",
+  "main": "build/electric-slide.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/schne324/electric-slide.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/schne324/electric-slide/issues"
+  },
+  "homepage": "https://github.com/schne324/electric-slide#readme",
+  "devDependencies": {
+    "colors": "^1.1.2",
+    "connect": "^3.4.1",
+    "gulp": "^3.9.1",
+    "gulp-jade": "^1.1.0",
+    "gulp-nodemon": "^2.0.6",
+    "gulp-stylus": "^2.3.1",
+    "serve-static": "^1.10.2"
+  }
+}

@@ -1,0 +1,27 @@
+extends layout
+
+block content
+  h1 Electric Slide
+  section
+    .electric-label Volume
+    .electric-slide
+      .handle
+
+
+block scripts
+  script.
+    $('.electric-slide').electricSlide({
+      handle: '.handle',
+      label: '.electric-label',
+      //- values: {
+      //-   min: 0,
+      //-   max: 100
+      //- },
+      values: ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'],
+      increment: 5
+    })
+    .on('electricSlide:init', function (e, container, handle) {
+      console.log('init fired!');
+      console.log('container: ', container);
+      console.log('handle: ', handle);
+    });
