@@ -1,10 +1,17 @@
 
+vendor(prop, args)
+  -webkit-{prop} args
+  -moz-{prop} args
+  {prop} args
+
 border-radius(n)
-  -webkit-border-radius n
-  -moz-border-radius n
-  border-radius n
+  vendor(border-radius, n)
 
 box-sizing(v)
-  -webkit-box-sizing v
-  -moz-box-sizing v
-  box-sizing v
+  vendor(box-sizing, v)
+
+box-shadow(v)
+  vendor(box-shadow, v)
+
+transition(args)
+  vendor('transition', args)

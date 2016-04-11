@@ -2,26 +2,65 @@ extends layout
 
 block content
   h1 Electric Slide
-  section
-    .electric-label Volume
-    .electric-slide
+  section.week
+    .electric-label.week Day of the week
+    .electric-slide.week
       .handle
+    .tip
+  section.volume
+    .electric-label.volume Volume
+    .electric-slide.volume
+      .handle
+    .tip
+  section.dob
+    .electric-label.dob Date of birth
+    .electric-slide.dob
+      .handle
+    .tip
+  section.years
+    .electric-label.years Decades
+    .electric-slide.years
+      .handle
+    .tip
+
 
 
 block scripts
   script.
-    $('.electric-slide').electricSlide({
-      handle: '.handle',
-      label: '.electric-label',
-      //- values: {
-      //-   min: 0,
-      //-   max: 100
-      //- },
-      values: ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'],
+    // days of the week
+    $('.electric-slide.week').electricSlide({
+      label: '.electric-label.week',
+      values: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+    })
+    .on('electricSlide:change electricSlide:init', function (e, container, handle) {
+      $('.week .tip').html(handle.getAttribute('aria-valuetext'));
+    });
+    // volume
+    $('.electric-slide.volume').electricSlide({
+      label: '.electric-label.volume',
       increment: 5
     })
-    .on('electricSlide:init', function (e, container, handle) {
-      console.log('init fired!');
-      console.log('container: ', container);
-      console.log('handle: ', handle);
+    .on('electricSlide:change electricSlide:init', function (e, container, handle) {
+      $('.volume .tip').html(handle.getAttribute('aria-valuenow') + '%');
+    });
+    // dob (1900 - 2000)
+    $('.electric-slide.dob').electricSlide({
+      values: {
+        min: 1900,
+        max: 2020
+      }
+    })
+    .on('electricSlide:change electricSlide:init', function (e, container, handle) {
+      $('.dob .tip').html('The year ' + handle.getAttribute('aria-valuenow'));
+    });
+    // decades (1900 - 2000)
+    $('.electric-slide.years').electricSlide({
+      values: {
+        min: 1900,
+        max: 2020
+      },
+      increment: 10
+    })
+    .on('electricSlide:change electricSlide:init', function (e, container, handle) {
+      $('.years .tip').html('Decade: ' + handle.getAttribute('aria-valuenow'));
     });

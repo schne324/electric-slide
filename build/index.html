@@ -1,15 +1,37 @@
-<!DOCTYPE html><html lang="en"><head><title>Electric Slide | Accessible Slider</title><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"></head><body><h1>Electric Slide</h1><section><div class="electric-label">Volume</div><div class="electric-slide"><div class="handle"></div></div></section><script src="../bower_components/jquery/dist/jquery.js"></script><script src="electric-slide.js"></script><script>$('.electric-slide').electricSlide({
-  handle: '.handle',
-  label: '.electric-label',
-  //- values: {
-  //-   min: 0,
-  //-   max: 100
-  //- },
-  values: ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'],
+<!DOCTYPE html><html lang="en"><head><title>Electric Slide | Accessible Slider</title><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"></head><body><h1>Electric Slide</h1><section class="week"><div class="electric-label week">Day of the week</div><div class="electric-slide week"><div class="handle"></div></div><div class="tip"></div></section><section class="volume"><div class="electric-label volume">Volume</div><div class="electric-slide volume"><div class="handle"></div></div><div class="tip"></div></section><section class="dob"><div class="electric-label dob">Date of birth</div><div class="electric-slide dob"><div class="handle"></div></div><div class="tip"></div></section><section class="years"><div class="electric-label years">Decades</div><div class="electric-slide years"><div class="handle"></div></div><div class="tip"></div></section><script src="../bower_components/jquery/dist/jquery.js"></script><script src="electric-slide.js"></script><script>// days of the week
+$('.electric-slide.week').electricSlide({
+  label: '.electric-label.week',
+  values: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+})
+.on('electricSlide:change electricSlide:init', function (e, container, handle) {
+  $('.week .tip').html(handle.getAttribute('aria-valuetext'));
+});
+// volume
+$('.electric-slide.volume').electricSlide({
+  label: '.electric-label.volume',
   increment: 5
 })
-.on('electricSlide:init', function (e, container, handle) {
-  console.log('init fired!');
-  console.log('container: ', container);
-  console.log('handle: ', handle);
+.on('electricSlide:change electricSlide:init', function (e, container, handle) {
+  $('.volume .tip').html(handle.getAttribute('aria-valuenow') + '%');
+});
+// dob (1900 - 2000)
+$('.electric-slide.dob').electricSlide({
+  values: {
+    min: 1900,
+    max: 2020
+  }
+})
+.on('electricSlide:change electricSlide:init', function (e, container, handle) {
+  $('.dob .tip').html('The year ' + handle.getAttribute('aria-valuenow'));
+});
+// decades (1900 - 2000)
+$('.electric-slide.years').electricSlide({
+  values: {
+    min: 1900,
+    max: 2020
+  },
+  increment: 10
+})
+.on('electricSlide:change electricSlide:init', function (e, container, handle) {
+  $('.years .tip').html('Decade: ' + handle.getAttribute('aria-valuenow'));
 });</script></body></html>
