@@ -12,6 +12,7 @@ var defaults = {
     min: 0,
     max: 100
   },
+  initialValue: null,
   increment: 1
 };
 
@@ -25,7 +26,6 @@ function ElectricSlide(container, userOpts) {
   this.$container = jQuery(container);
   this.setup();
 }
-
 
 ElectricSlide.prototype.setup = function () {
   var options = this.options;
@@ -42,12 +42,9 @@ ElectricSlide.prototype.setup = function () {
     tabIndex: 0
   });
 
-
   configureAriaValue($handle, options);
 
   this.currentValue = $handle.attr('aria-valuenow');
-
-
   this.mapSlideArea(); // TODO: for responsive stuff call this onresize
   this.attachEvents();
   // Fire the init event
@@ -55,7 +52,12 @@ ElectricSlide.prototype.setup = function () {
     $container.trigger('electricSlide:init', [$container[0], $handle[0]]);
   });
 
-  this.goTo(this.currentValue);
+  console.log('initialValue: ', this.options.initialValue);
+  if (this.options.initialValue) {
+    this.goTo(this.options.initialValue);
+  } else {
+    this.goTo(this.currentValue);
+  }
 };
 
 ElectricSlide.prototype.mapSlideArea = function () {
@@ -78,27 +80,27 @@ ElectricSlide.prototype.attachEvents = function () {
         e.preventDefault(); // don't scroll
         that.onArrow(which);
       }
-    });
-  this.$container
+    })
     // drag
+    .off('mousedown.electricSlide')
     .on('mousedown.electricSlide', function () {
-      that.$container // TODO: if sloppy drag is desired, attach it to the document...
+      $(document) // this allows for sloppy drags
         .on('mousemove.electricSlide', function (e) {
-          var posNow = { x: e.pageX, y: e.pageY };
-          console.log('posNow: ', posNow);
-
-          if (that.lastPos) {
-            // calculate where on the slider
-
-          }
-
-          that.lastPos = posNow;
+          var x = e.pageX; // TODO: for vertical sliders, use e.pageY
+          that.onDrag(x - that.$container.offset().left);
         });
     });
   $(document).on('mouseup.electricSlide', function () {
-    that.$container.off('mousemove.electricSlide');
+    $(document).off('mousemove.electricSlide');
   });
 
+  this.$container
+    // jump to
+    .on('mousedown', function (e) {
+      if (!$(e.target).is(that.$handle[0])) {
+        that.onDrag(e.offsetX, true);
+      }
+    });
 };
 
 ElectricSlide.prototype.onArrow = function (which) {
@@ -112,6 +114,7 @@ ElectricSlide.prototype.goTo = function (value) {
   var vals = this.options.values;
   var isArray = jQuery.isArray(vals);
   var isOutlier = value < vals.min || value > vals.max;
+
   if (isOutlier || (isArray && !vals[value])) { return; }
   if (isArray) {
     this.$handle.attr('aria-valuetext', vals[value]);
@@ -123,6 +126,29 @@ ElectricSlide.prototype.goTo = function (value) {
   move(this.$handle, this.incrementWidth, this.options)
 
   this.$container.trigger('electricSlide:change', [this.$container[0], this.$handle[0]])
+};
+
+// TODO: rename this because it is utilized for jump-to funcionality as well as drag
+ElectricSlide.prototype.onDrag = function (offsetLeft, force) {
+  var units = offsetLeft / this.incrementWidth;
+  if (!jQuery.isArray(this.options.values)) {
+    units = Math.floor(this.options.values.min + units);
+    var grissle = units % this.options.increment;
+    if ((grissle > 0) && !force) {
+      return;
+    } else if (force) {
+      units = roundTo(units, this.options.increment)
+    }
+  } else {
+    var dec = units - Math.floor(units);
+    if (dec > 0.5) { // round up
+      units = Math.ceil(units);
+    } else { // round down
+      units = Math.floor(units);
+    }
+  }
+
+  this.goTo(units);
 };
 
 /**
@@ -185,4 +211,13 @@ function move($handle, incrementWidth, options) {
   var valMin = parseInt($handle.attr('aria-valuemin'));
   var moveTo = (valNow - valMin) * incrementWidth;
   $handle.css('margin-left', [(moveTo - halfWidth).toString(), 'px'].join(''));
+}
+
+function roundTo(n, inc) {
+  var grissle = n % inc;
+  if (grissle <= (inc/2)) {
+    return n - grissle;
+  } else {
+    return n + inc - grissle;
+  }
 }

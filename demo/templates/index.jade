@@ -8,7 +8,7 @@ block content
       .handle
     .tip
   section.volume
-    .electric-label.volume Volume
+    .electric-label.volume Volume (with 75% initial value option set)
     .electric-slide.volume
       .handle
     .tip
@@ -23,8 +23,6 @@ block content
       .handle
     .tip
 
-
-
 block scripts
   script.
     // days of the week
@@ -38,7 +36,8 @@ block scripts
     // volume
     $('.electric-slide.volume').electricSlide({
       label: '.electric-label.volume',
-      increment: 5
+      increment: 5,
+      initialValue: 75
     })
     .on('electricSlide:change electricSlide:init', function (e, container, handle) {
       $('.volume .tip').html(handle.getAttribute('aria-valuenow') + '%');

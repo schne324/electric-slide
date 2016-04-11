@@ -4,8 +4,15 @@
  * Demo Styles
  */
 
+body
+  font-family 'Electrolize', sans-serif
+  background-color #000
+  color #fff
+  font-size 1.35em
+
 h1
-  font-size 55px
+  font-size 3em
+  text-align center
 
 section
   margin 20px auto
@@ -14,6 +21,9 @@ section
   border-radius(15px)
   padding 15px
   min-width 550px
+  background #fefefe
+  color #000
+  noSelect()
 
 .electric-label
   margin 5px auto
@@ -26,6 +36,8 @@ section
   background #eee
   box-shadow(inset 1px 1px 6px)
   box-sizing(border-box)
+  border-radius(5px)
+  noSelect()
 
   .handle
     width 30px
@@ -35,7 +47,8 @@ section
     position absolute
     margin-top -5px
     box-sizing(border-box)
-    transition(all .5s)
+    noSelect()
+    // transition(all .4s ease)
 
 .tip
   text-align center

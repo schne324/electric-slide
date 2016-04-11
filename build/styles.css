@@ -1,8 +1,15 @@
 /*
  * Demo Styles
  */
+body {
+  font-family: 'Electrolize', sans-serif;
+  background-color: #000;
+  color: #fff;
+  font-size: 1.35em;
+}
 h1 {
-  font-size: 55px;
+  font-size: 3em;
+  text-align: center;
 }
 section {
   margin: 20px auto;
@@ -13,6 +20,14 @@ section {
   border-radius: 15px;
   padding: 15px;
   min-width: 550px;
+  background: #fefefe;
+  color: #000;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Chrome/Safari/Opera */
+  -khtml-user-select: none; /* Konqueror */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE/Edge */
+  user-select: none;
 }
 .electric-label {
   margin: 5px auto;
@@ -29,6 +44,15 @@ section {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Chrome/Safari/Opera */
+  -khtml-user-select: none; /* Konqueror */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE/Edge */
+  user-select: none;
 }
 .electric-slide .handle {
   width: 30px;
@@ -40,9 +64,12 @@ section {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  -webkit-transition: all 0.5s;
-  -moz-transition: all 0.5s;
-  transition: all 0.5s;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Chrome/Safari/Opera */
+  -khtml-user-select: none; /* Konqueror */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE/Edge */
+  user-select: none;
 }
 .tip {
   text-align: center;

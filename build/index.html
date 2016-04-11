@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><title>Electric Slide | Accessible Slider</title><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"></head><body><h1>Electric Slide</h1><section class="week"><div class="electric-label week">Day of the week</div><div class="electric-slide week"><div class="handle"></div></div><div class="tip"></div></section><section class="volume"><div class="electric-label volume">Volume</div><div class="electric-slide volume"><div class="handle"></div></div><div class="tip"></div></section><section class="dob"><div class="electric-label dob">Date of birth</div><div class="electric-slide dob"><div class="handle"></div></div><div class="tip"></div></section><section class="years"><div class="electric-label years">Decades</div><div class="electric-slide years"><div class="handle"></div></div><div class="tip"></div></section><script src="../bower_components/jquery/dist/jquery.js"></script><script src="electric-slide.js"></script><script>// days of the week
+<!DOCTYPE html><html lang="en"><head><title>Electric Slide | Accessible Slider</title><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"><link href="https://fonts.googleapis.com/css?family=Electrolize" rel="stylesheet" type="text/css"></head><body><h1>Electric Slide</h1><section class="week"><div class="electric-label week">Day of the week</div><div class="electric-slide week"><div class="handle"></div></div><div class="tip"></div></section><section class="volume"><div class="electric-label volume">Volume (with 75% initial value option set)</div><div class="electric-slide volume"><div class="handle"></div></div><div class="tip"></div></section><section class="dob"><div class="electric-label dob">Date of birth</div><div class="electric-slide dob"><div class="handle"></div></div><div class="tip"></div></section><section class="years"><div class="electric-label years">Decades</div><div class="electric-slide years"><div class="handle"></div></div><div class="tip"></div></section><script src="../bower_components/jquery/dist/jquery.js"></script><script src="electric-slide.js"></script><script>// days of the week
 $('.electric-slide.week').electricSlide({
   label: '.electric-label.week',
   values: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
@@ -9,7 +9,8 @@ $('.electric-slide.week').electricSlide({
 // volume
 $('.electric-slide.volume').electricSlide({
   label: '.electric-label.volume',
-  increment: 5
+  increment: 5,
+  initialValue: 75
 })
 .on('electricSlide:change electricSlide:init', function (e, container, handle) {
   $('.volume .tip').html(handle.getAttribute('aria-valuenow') + '%');
