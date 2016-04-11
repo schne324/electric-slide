@@ -68,6 +68,7 @@ ElectricSlide.prototype.mapSlideArea = function () {
 };
 
 ElectricSlide.prototype.attachEvents = function () {
+  var $document = jQuery(document);
   var that = this;
 
   this.$handle
@@ -83,20 +84,21 @@ ElectricSlide.prototype.attachEvents = function () {
     // drag
     .off('mousedown.electricSlide')
     .on('mousedown.electricSlide', function () {
-      $(document) // this allows for sloppy drags
+      $document // this allows for sloppy drags
         .on('mousemove.electricSlide', function (e) {
           var x = e.pageX; // TODO: for vertical sliders, use e.pageY
           that.onDrag(x - that.$container.offset().left);
         });
     });
-  $(document).on('mouseup.electricSlide', function () {
-    $(document).off('mousemove.electricSlide');
+
+  $document.on('mouseup.electricSlide', function () {
+    $document.off('mousemove.electricSlide');
   });
 
   this.$container
     // jump to
     .on('mousedown', function (e) {
-      if (!$(e.target).is(that.$handle[0])) {
+      if (!jQuery(e.target).is(that.$handle[0])) {
         that.onDrag(e.offsetX, true);
       }
     });
@@ -122,9 +124,9 @@ ElectricSlide.prototype.goTo = function (value) {
   this.currentValue = value;
   this.$handle.attr('aria-valuenow', value);
   // move the slider visually to the new value
-  move(this.$handle, this.incrementWidth, this.options)
+  move(this.$handle, this.incrementWidth);
 
-  this.$container.trigger('electricSlide:change', [this.$container[0], this.$handle[0]])
+  this.$container.trigger('electricSlide:change', [this.$container[0], this.$handle[0]]);
 };
 
 // TODO: rename this because it is utilized for jump-to funcionality as well as drag
@@ -136,7 +138,7 @@ ElectricSlide.prototype.onDrag = function (offsetLeft, force) {
     if ((grissle > 0) && !force) {
       return;
     } else if (force) {
-      units = roundTo(units, this.options.increment)
+      units = roundTo(units, this.options.increment);
     }
   } else {
     var dec = units - Math.floor(units);
@@ -155,7 +157,7 @@ ElectricSlide.prototype.onDrag = function (offsetLeft, force) {
  * @param  {Object} userOpts User's options
  * @return {jQuery}          Chainable
  */
-$.fn.electricSlide = function (userOpts) {
+jQuery.fn.electricSlide = function (userOpts) {
   return this.each(function () {
     return new ElectricSlide(this, userOpts);
   });
@@ -181,7 +183,7 @@ function randy(len) {
   len = len || 7;
   for (var i = 0, str = ''; i < len; i++) {
     str += String.fromCharCode(97 + Math.floor(Math.random() * 25));
-  };
+  }
 
   // dont create duplicate ids
   if (document.getElementById(str)) {
@@ -201,10 +203,12 @@ function configureAriaValue($handle, options) {
     'aria-valuenow': minVal
   });
 
-  if (isArray) { $handle.attr('aria-valuetext', vals[0]) }
+  if (isArray) { $handle.attr('aria-valuetext', vals[0]); }
 }
 
-function move($handle, incrementWidth, options) {
+// moves the handle
+// TODO: margin-left is presumptuous (margin-top for top-bottom vertical sliders...)
+function move($handle, incrementWidth) {
   var halfWidth = $handle.width() / 2;
   var valNow = parseInt($handle.attr('aria-valuenow'));
   var valMin = parseInt($handle.attr('aria-valuemin'));
@@ -212,6 +216,7 @@ function move($handle, incrementWidth, options) {
   $handle.css('margin-left', [(moveTo - halfWidth).toString(), 'px'].join(''));
 }
 
+// rounds to the nearest increment
 function roundTo(n, inc) {
   var grissle = n % inc;
   if (grissle <= (inc/2)) {
