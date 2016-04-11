@@ -52,7 +52,6 @@ ElectricSlide.prototype.setup = function () {
     $container.trigger('electricSlide:init', [$container[0], $handle[0]]);
   });
 
-  console.log('initialValue: ', this.options.initialValue);
   if (this.options.initialValue) {
     this.goTo(this.options.initialValue);
   } else {
