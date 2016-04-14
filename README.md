@@ -18,7 +18,7 @@ Called on the element which contains the handle. `jQuery('.my-container').electr
   ```javascript
     {
       min: 0,
-      max: 0
+      max: 100
     }
   ```
 - `increment` (optional): The amount to increment/decrement within the values of the slider (should really only be used with the object form of the `values` option).
