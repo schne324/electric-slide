@@ -37,7 +37,15 @@ section
   box-shadow(inset 1px 1px 6px)
   box-sizing(border-box)
   border-radius(5px)
+  position relative
   noSelect()
+
+  &.disabled
+    box-shadow none
+
+    .handle
+      background #fefefe
+      border 1px solid #ccc
 
   .handle
     width 30px
@@ -50,6 +58,20 @@ section
     noSelect()
     // transition(all .3s ease)
 
+  .electric-fill
+    position absolute
+    height 20px
+    background-color #000
+    left 0
+    top 0
+    vendor(border-top-left-radius, 5px)
+    vendor(border-bottom-left-radius, 5px)
+    box-shadow(1px 1px 6px)
+
 .tip
   text-align center
   margin-top 15px
+
+.electric-help
+  font-size 14px
+  font-style italic

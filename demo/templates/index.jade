@@ -8,7 +8,7 @@ block content
       .handle
     .tip
   section.volume
-    .electric-label.volume Volume (with 75% initial value option set)
+    .electric-label.volume Volume (with 75% 'initialValue' and 'highlight' options set)
     .electric-slide.volume
       .handle
     .tip
@@ -22,6 +22,17 @@ block content
     .electric-slide.years
       .handle
     .tip
+  section.dis
+    .electric-label.dis Disabled by default
+    .electric-slide.dis
+      .handle
+    .tip
+  section.dynamic-disable
+    .electric-label.dynamic-disable Dynamic Disable (must be called using `ElectricSlide` contructor)
+    .electric-slide.dynamic-disable
+      .handle
+    .electric-help.dynamic-disable click the "Toggle Disabled" button to toggle disabled state
+    button(type='button').dynamic-disable Toggle Disabled
 
 block scripts
   script.
@@ -37,7 +48,8 @@ block scripts
     $('.electric-slide.volume').electricSlide({
       label: '.electric-label.volume',
       increment: 5,
-      initialValue: 75
+      initialValue: 75,
+      highlight: true
     })
     .on('electricSlide:change electricSlide:init', function (e, container, handle) {
       $('.volume .tip').html(handle.getAttribute('aria-valuenow') + '%');
@@ -62,4 +74,23 @@ block scripts
     })
     .on('electricSlide:change electricSlide:init', function (e, container, handle) {
       $('.years .tip').html('Decade: ' + handle.getAttribute('aria-valuenow'));
+    });
+    // disabled by default
+    $('.electric-slide.dis').electricSlide({
+      label: '.electric-label.dis',
+      disabled: true
+    });
+    // dynamic-disable
+    var ddSlider = document.querySelector('.electric-slide.dynamic-disable');
+    var es = new ElectricSlide(ddSlider, {
+      label: '.electric-label.dynamic-disable',
+      help: '.electric-help.dynamic-disable'
+    });
+
+    document.querySelector('button.dynamic-disable').addEventListener('click', function () {
+      if (es.disabled) {
+        es.enable();
+      } else {
+        es.disable();
+      }
     });

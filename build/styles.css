@@ -47,12 +47,22 @@ section {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
+  position: relative;
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none; /* Chrome/Safari/Opera */
   -khtml-user-select: none; /* Konqueror */
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* IE/Edge */
   user-select: none;
+}
+.electric-slide.disabled {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+.electric-slide.disabled .handle {
+  background: #fefefe;
+  border: 1px solid #ccc;
 }
 .electric-slide .handle {
   width: 30px;
@@ -71,7 +81,27 @@ section {
   -ms-user-select: none; /* IE/Edge */
   user-select: none;
 }
+.electric-slide .electric-fill {
+  position: absolute;
+  height: 20px;
+  background-color: #000;
+  left: 0;
+  top: 0;
+  -webkit-border-top-left-radius: 5px;
+  -moz-border-top-left-radius: 5px;
+  border-top-left-radius: 5px;
+  -webkit-border-bottom-left-radius: 5px;
+  -moz-border-bottom-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  -webkit-box-shadow: 1px 1px 6px;
+  -moz-box-shadow: 1px 1px 6px;
+  box-shadow: 1px 1px 6px;
+}
 .tip {
   text-align: center;
   margin-top: 15px;
+}
+.electric-help {
+  font-size: 14px;
+  font-style: italic;
 }
