@@ -80,10 +80,12 @@ ElectricSlide.prototype.attachEvents = function () {
         e.preventDefault(); // don't scroll
         that.onArrow(which);
       }
-    })
+    });
+  this.$container
     // drag
     .off('mousedown.electricSlide')
-    .on('mousedown.electricSlide', function () {
+    .on('mousedown.electricSlide', function (e) {
+      if (e.which === 3) { return; } // right click
       $document // this allows for sloppy drags
         .on('mousemove.electricSlide', function (e) {
           var x = e.pageX; // TODO: for vertical sliders, use e.pageY
